@@ -1,0 +1,7 @@
+server:
+  port: 8082
+  
+providers:
+  fixer:
+    api-key: 227a4ef208d9a9ec37d6a2b3138acce5
+    latest-path: http://data.fixer.io/api/latest
