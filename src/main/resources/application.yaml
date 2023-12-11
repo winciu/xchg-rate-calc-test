@@ -1,6 +1,11 @@
 server:
   port: 8082
-  
+
+scheduling:
+  fixer:
+    cron: "0 5 0 * * *"
+    timezone: "GMT"
+
 providers:
   fixer:
     api-key: 227a4ef208d9a9ec37d6a2b3138acce5
