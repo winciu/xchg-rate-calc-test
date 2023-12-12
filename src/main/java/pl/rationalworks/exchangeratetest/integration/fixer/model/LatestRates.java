@@ -14,9 +14,21 @@ import java.util.Map;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Getter
 public class LatestRates extends FixerResponse {
+    /**
+     * Returns the exact date and time (UNIX time stamp) the given rates were collected.
+     */
     private final Instant timestamp;
+    /**
+     * Returns the three-letter currency code of the base currency used for this request.
+     */
     private final Currency base;
+    /**
+     * Returns the date the given exchange rate data was collected
+     */
     private final LocalDate date;
+    /**
+     * Returns exchange rate data for the currencies you have requested.
+     */
     private final Map<Currency, BigDecimal> rates;
 
     @JsonCreator

@@ -10,6 +10,9 @@ import lombok.Getter;
         @JsonSubTypes.Type(LatestRates.class)})
 @Getter
 public abstract class FixerResponse {
+    /**
+     * Returns true or false depending on whether your API request has succeeded.
+     */
     private final boolean success;
 
     public FixerResponse(boolean success) {
