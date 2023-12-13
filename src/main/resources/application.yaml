@@ -7,10 +7,12 @@ scheduling:
     timezone: "GMT"
 
 service:
-  base-currency: "EUR"
+  base-currency: &base-currency-code "EUR"
   spread:
     default: 2.75
-    base-currency: 0
+    base-currency:
+      code: *base-currency-code
+      value: 0
     mapping:
       JPY: 3.25
       HKD: 3.25
@@ -42,6 +44,8 @@ spring:
           batch_size: 4
         order_inserts: true
         generate_statistics: true
+        format_sql: true
+    show-sql: true
   h2:
     console:
       enabled: true

@@ -28,7 +28,7 @@ class ExchangeRateCalculatorTest {
                                               BigDecimal fromCurrencySpread,
                                               BigDecimal expectedResult) {
         ExchangeRateCalculator exchangeRateCalculator = new ExchangeRateCalculator();
-        BigDecimal actual = exchangeRateCalculator.calculateExchangeRate(toCurrencyRate, fromCurrencyRate, toCurrencySpread, fromCurrencySpread);
+        BigDecimal actual = exchangeRateCalculator.calculateExchangeRate(fromCurrencyRate, toCurrencyRate, fromCurrencySpread, toCurrencySpread);
         assertThat(actual, comparesEqualTo(expectedResult));
     }
 }

@@ -15,6 +15,17 @@ import java.util.Map;
 public class SpreadProperties {
     @Value("${service.spread.default}")
     private BigDecimal defaultSpread;
-    private BigDecimal baseCurrency;
+    @Value("${service.spread.base-currency.value}")
+    private BigDecimal baseCurrencySpread;
+    @Value("${service.spread.base-currency.code}")
+    private Currency baseCurrency;
     private Map<Currency, BigDecimal> mapping;
+
+    public BigDecimal obtainCurrencySpread(Currency currency) {
+        if (baseCurrency.equals(currency)) {
+            return baseCurrencySpread;
+        }
+        return mapping.getOrDefault(currency, defaultSpread);
+    }
+
 }

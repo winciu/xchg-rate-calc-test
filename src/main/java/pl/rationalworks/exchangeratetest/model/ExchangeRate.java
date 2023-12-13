@@ -21,7 +21,7 @@ public class ExchangeRate {
     /**
      * exact date and time (UNIX time stamp) the given rates were collected
      */
-    @Column(name = "timestamp", nullable = false, updatable = false)
+    @Column(name = "timestamp", nullable = false)
     private Instant timestamp;
 
     @Column(name = "rate", nullable = false, precision = 12, scale = 6)
