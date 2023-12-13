@@ -1,4 +1,4 @@
-package pl.rationalworks.exchangeratetest.schedule;
+package pl.rationalworks.exchangeratetest.scheduling;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import pl.rationalworks.exchangeratetest.integration.fixer.FixerExchangeRatesProvider;
 import pl.rationalworks.exchangeratetest.integration.fixer.FixerRatesProviderException;
 import pl.rationalworks.exchangeratetest.integration.fixer.model.LatestRates;
+import pl.rationalworks.exchangeratetest.service.ExchangeRateService;
 
 @Component
 @Slf4j
@@ -16,6 +17,7 @@ import pl.rationalworks.exchangeratetest.integration.fixer.model.LatestRates;
 public class ExchangeRateFetchingScheduler {
 
     private final FixerExchangeRatesProvider ratesProvider;
+    private final ExchangeRateService service;
 
     @Scheduled(cron = " ${scheduling.fixer.cron}", zone = "${scheduling.fixer.timezone}")
     public void fetchFixerExchangeRates() {
@@ -28,6 +30,6 @@ public class ExchangeRateFetchingScheduler {
             return;
         }
         log.info("Rates fetched. Timestamp: {}", rates.getTimestamp().toString());
-
+        service.saveFixerRates(rates);
     }
 }

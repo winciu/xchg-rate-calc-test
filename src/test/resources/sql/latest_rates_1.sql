@@ -1,0 +1,14 @@
+insert into exchange_rates(date, target_currency, timestamp, rate) values ('2023-12-09','CAD',{ts '2023-12-09 22:14:30.00'},1.464603);
+insert into exchange_rates(date, target_currency, timestamp, rate) values ('2023-12-09','CDF',{ts '2023-12-09 22:14:30.00'},2887.296389);
+insert into exchange_rates(date, target_currency, timestamp, rate) values ('2023-12-09','CHF',{ts '2023-12-09 22:14:30.00'},0.948133);
+insert into exchange_rates(date, target_currency, timestamp, rate) values ('2023-12-09','CLF',{ts '2023-12-09 22:14:30.00'},0.034013);
+insert into exchange_rates(date, target_currency, timestamp, rate) values ('2023-12-09','CLP',{ts '2023-12-09 22:14:30.00'},939.719349);
+insert into exchange_rates(date, target_currency, timestamp, rate) values ('2023-12-09','CNY',{ts '2023-12-09 22:14:30.00'},7.688615);
+insert into exchange_rates(date, target_currency, timestamp, rate) values ('2023-12-09','COP',{ts '2023-12-09 22:14:30.00'},4300.09702);
+insert into exchange_rates(date, target_currency, timestamp, rate) values ('2023-12-09','CRC',{ts '2023-12-09 22:14:30.00'},569.099606);
+insert into exchange_rates(date, target_currency, timestamp, rate) values ('2023-12-09','CUC',{ts '2023-12-09 22:14:30.00'},1.077349);
+insert into exchange_rates(date, target_currency, timestamp, rate) values ('2023-12-09','CUP',{ts '2023-12-09 22:14:30.00'},28.549755);
+insert into exchange_rates(date, target_currency, timestamp, rate) values ('2023-12-09','CVE',{ts '2023-12-09 22:14:30.00'},110.264924);
+insert into exchange_rates(date, target_currency, timestamp, rate) values ('2023-12-09','CZK',{ts '2023-12-09 22:14:30.00'},24.39507);
+insert into exchange_rates(date, target_currency, timestamp, rate) values ('2023-12-09','DJF',{ts '2023-12-09 22:14:30.00'},191.989867);
+insert into exchange_rates(date, target_currency, timestamp, rate) values ('2023-12-09','DKK',{ts '2023-12-09 22:14:30.00'},7.462372);

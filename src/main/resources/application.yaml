@@ -6,6 +6,22 @@ scheduling:
     cron: "0 5 0 * * *"
     timezone: "GMT"
 
+service:
+  base-currency: "EUR"
+  spread:
+    default: 2.75
+    base-currency: 0
+    mapping:
+      JPY: 3.25
+      HKD: 3.25
+      KRW: 3.25
+      MYR: 4.50
+      INR: 4.50
+      MXN: 4.50
+      RUB: 6.00
+      CNY: 6.00
+      ZAR: 6.00
+
 providers:
   fixer:
     api-key: 227a4ef208d9a9ec37d6a2b3138acce5

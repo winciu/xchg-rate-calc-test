@@ -1,4 +1,4 @@
-package pl.rationalworks.exchangeratetest.schedule;
+package pl.rationalworks.exchangeratetest.scheduling;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -8,6 +8,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import pl.rationalworks.exchangeratetest.integration.fixer.FixerExchangeRatesProvider;
 import pl.rationalworks.exchangeratetest.integration.fixer.FixerRatesProviderException;
 import pl.rationalworks.exchangeratetest.integration.fixer.model.LatestRates;
+import pl.rationalworks.exchangeratetest.service.ExchangeRateService;
 
 import java.math.BigDecimal;
 import java.time.Instant;
@@ -25,6 +26,8 @@ class ExchangeRateFetchingSchedulerTest {
 
     @Mock
     private FixerExchangeRatesProvider provider;
+    @Mock
+    private ExchangeRateService service;
 
     @Test
     void shouldCallRatesProvider() throws FixerRatesProviderException {
@@ -35,5 +38,6 @@ class ExchangeRateFetchingSchedulerTest {
         scheduler.fetchFixerExchangeRates();
 
         verify(provider, atMostOnce()).provideExchangeRates();
+        verify(service, atMostOnce()).saveFixerRates(rates);
     }
 }

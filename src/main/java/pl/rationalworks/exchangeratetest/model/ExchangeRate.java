@@ -1,17 +1,13 @@
 package pl.rationalworks.exchangeratetest.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.EmbeddedId;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
+import java.time.Instant;
 
 @Entity
-@Table(name = "exchange_rates")
-//@IdClass(ExchangeRateId.class)
+@Table(name = "exchange_rates", indexes = @Index(name = "xchg_date_idx", columnList = "date"))
 @EqualsAndHashCode
 @ToString
 @AllArgsConstructor
@@ -22,23 +18,13 @@ public class ExchangeRate {
     @EmbeddedId
     private ExchangeRateId exchangeRateId;
 
-    //    @Id
-//    @Column(name = "provider", nullable = false)
-//    private String providerName;
-//    @Id
-//    @Column(name = "base_currency", nullable = false)
-//    private Currency baseCurrency;
-//    @Id
-//    @Column(name = "target_currency", nullable = false)
-//    private Currency targetCurrency;
-
     /**
-     * the date the given exchange rate data was collected
+     * exact date and time (UNIX time stamp) the given rates were collected
      */
-    @Column(name = "date", nullable = false)
-    private LocalDate date;
+    @Column(name = "timestamp", nullable = false, updatable = false)
+    private Instant timestamp;
 
-    @Column(name = "rate", nullable = false)
+    @Column(name = "rate", nullable = false, precision = 12, scale = 6)
     private BigDecimal rate;
 
 }
