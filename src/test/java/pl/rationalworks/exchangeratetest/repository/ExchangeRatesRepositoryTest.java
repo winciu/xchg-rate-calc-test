@@ -1,5 +1,7 @@
 package pl.rationalworks.exchangeratetest.repository;
 
+import lombok.extern.slf4j.Slf4j;
+import org.hamcrest.MatcherAssert;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -12,6 +14,7 @@ import pl.rationalworks.exchangeratetest.model.ExchangeRate;
 import pl.rationalworks.exchangeratetest.model.ExchangeRateId;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -26,8 +29,10 @@ import static java.math.BigDecimal.valueOf;
 import static java.time.LocalDate.ofInstant;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.comparesEqualTo;
+import static org.hamcrest.Matchers.equalTo;
 import static org.junit.jupiter.api.Assertions.*;
 
+@Slf4j
 @DataJpaTest
 public class ExchangeRatesRepositoryTest {
 
@@ -38,7 +43,7 @@ public class ExchangeRatesRepositoryTest {
 
     private static Stream<Arguments> shouldSaveAllExchangeRates() {
         return Stream.of(
-                Arguments.of(1, Currency.getInstance("MUR"),
+                Arguments.of(Currency.getInstance("MUR"),
                         Instant.now().minus(1, ChronoUnit.DAYS),
                         Map.of(
                                 Currency.getInstance("MOP"), valueOf(8.677294),
@@ -48,7 +53,7 @@ public class ExchangeRatesRepositoryTest {
                                 Currency.getInstance("MWK"), valueOf(1815.098742),
                                 Currency.getInstance("MXN"), valueOf(18.689897)
                         )),
-                Arguments.of(2, Currency.getInstance("USD"),
+                Arguments.of(Currency.getInstance("USD"),
                         Instant.now().minus(2, ChronoUnit.DAYS),
                         Map.of(
                                 Currency.getInstance("UAH"), valueOf(39.607273),
@@ -62,13 +67,15 @@ public class ExchangeRatesRepositoryTest {
 
     @ParameterizedTest
     @MethodSource
-    void shouldSaveAllExchangeRates(int daysBack, Currency itemToCheck, Instant timestamp, Map<Currency, BigDecimal> rates) {
+    void shouldSaveAllExchangeRates(Currency itemToCheck, Instant timestamp, Map<Currency, BigDecimal> rates) {
         List<ExchangeRate> exchangeRates = rates.entrySet().stream().map(entry -> {
             ExchangeRateId exchangeRateId = new ExchangeRateId(ofInstant(timestamp, ZoneId.systemDefault()), entry.getKey());
-            return new ExchangeRate(exchangeRateId, timestamp, entry.getValue());
+            return new ExchangeRate(exchangeRateId, timestamp, entry.getValue(), BigInteger.ZERO);
         }).toList();
 
+        log.info("Start saving {} exchange rates", exchangeRates.size());
         repository.saveAll(exchangeRates);
+        log.info("Exchange rates saved.");
 
         ExchangeRateId exchangeRateId = new ExchangeRateId(ofInstant(timestamp, ZoneId.systemDefault()), itemToCheck);
         ExchangeRate exchangeRate = entityManager.find(ExchangeRate.class, exchangeRateId);
@@ -103,6 +110,22 @@ public class ExchangeRatesRepositoryTest {
 
         Optional<ExchangeRate> rate2 = repository.findFirstByExchangeRateId_TargetCurrencyOrderByExchangeRateId_DateDesc(Currency.getInstance("USD"));
         assertFalse(rate2.isPresent());
+    }
+
+    @Test
+    @Sql("classpath:sql/latest_rates_1.sql")
+    void requestCounterShouldBeUpdated() {
+        List<ExchangeRateId> exchangeRateIds = List.of(
+                new ExchangeRateId(LocalDate.parse("2023-12-09"), Currency.getInstance("CLP")),
+                new ExchangeRateId(LocalDate.parse("2023-12-09"), Currency.getInstance("CNY")),
+                new ExchangeRateId(LocalDate.parse("2023-12-09"), Currency.getInstance("CZK"))
+        );
+        exchangeRateIds.forEach(id -> repository.updateRequestCounter(id));
+
+        exchangeRateIds.forEach(id -> {
+            ExchangeRate exchangeRate = entityManager.find(ExchangeRate.class, id);
+            MatcherAssert.assertThat(exchangeRate.getRequestCounter(), equalTo(BigInteger.ONE));
+        });
     }
 
 }

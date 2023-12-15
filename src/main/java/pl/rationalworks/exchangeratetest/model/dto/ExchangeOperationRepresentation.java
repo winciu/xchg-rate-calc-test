@@ -1,4 +1,4 @@
-package pl.rationalworks.exchangeratetest.model;
+package pl.rationalworks.exchangeratetest.model.dto;
 
 import java.math.BigDecimal;
 import java.util.Currency;

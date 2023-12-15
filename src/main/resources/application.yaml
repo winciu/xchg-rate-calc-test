@@ -1,12 +1,11 @@
 server:
   port: 8082
 
-scheduling:
-  fixer:
-    cron: "0 5 0 * * *"
-    timezone: "GMT"
-
 service:
+  scheduling:
+    fixer:
+      cron: "0 5 0 * * *"
+      timezone: "GMT"
   base-currency: &base-currency-code "EUR"
   spread:
     default: 2.75
@@ -42,7 +41,9 @@ spring:
       hibernate:
         jdbc:
           batch_size: 4
+          batch_versioned_data: true
         order_inserts: true
+        order_updates: true
         generate_statistics: true
         format_sql: true
     show-sql: true

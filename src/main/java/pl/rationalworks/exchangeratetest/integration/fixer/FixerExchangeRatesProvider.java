@@ -6,8 +6,8 @@ import org.springframework.http.*;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
-import pl.rationalworks.exchangeratetest.integration.fixer.model.FixerResponse;
 import pl.rationalworks.exchangeratetest.integration.fixer.model.FixerErrorResponse;
+import pl.rationalworks.exchangeratetest.integration.fixer.model.FixerResponse;
 import pl.rationalworks.exchangeratetest.integration.fixer.model.LatestRates;
 import pl.rationalworks.exchangeratetest.properties.FixerProviderProperties;
 
@@ -31,7 +31,7 @@ public class FixerExchangeRatesProvider {
 
         HttpEntity<String> entity = new HttpEntity<>(headers);
         String latestUrl = UriComponentsBuilder.fromUri(properties.getLatestPath())
-                .queryParam("access-key", properties.getApiKey())
+                .queryParam("access_key", properties.getApiKey())
                 .toUriString();
 
         ResponseEntity<FixerResponse> response = restTemplate.exchange(latestUrl, HttpMethod.GET, entity, FixerResponse.class);

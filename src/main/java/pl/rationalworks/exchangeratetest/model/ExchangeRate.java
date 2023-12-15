@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.time.Instant;
 
 @Entity
@@ -13,6 +14,7 @@ import java.time.Instant;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
+@Setter
 public class ExchangeRate {
 
     @EmbeddedId
@@ -26,5 +28,8 @@ public class ExchangeRate {
 
     @Column(name = "rate", nullable = false, precision = 12, scale = 6)
     private BigDecimal rate;
+
+    @Column(name = "request_counter", nullable = false, updatable = false)
+    private BigInteger requestCounter;
 
 }

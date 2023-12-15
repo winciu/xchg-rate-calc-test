@@ -32,8 +32,10 @@ public class LatestRates extends FixerResponse {
     private final Map<Currency, BigDecimal> rates;
 
     @JsonCreator
-    public LatestRates(@JsonProperty("success") boolean success, @JsonProperty("timestamp") Instant timestamp,
-                       @JsonProperty("base") Currency base, @JsonProperty("date") LocalDate date,
+    public LatestRates(@JsonProperty("success") boolean success,
+                       @JsonProperty("timestamp") Instant timestamp,
+                       @JsonProperty("base") Currency base,
+                       @JsonProperty("date") LocalDate date,
                        @JsonProperty("rates") Map<Currency, BigDecimal> rates) {
         super(success);
         this.timestamp = timestamp;

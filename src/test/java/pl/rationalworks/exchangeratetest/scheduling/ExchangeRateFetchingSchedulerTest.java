@@ -1,13 +1,15 @@
 package pl.rationalworks.exchangeratetest.scheduling;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pl.rationalworks.exchangeratetest.integration.fixer.FixerExchangeRatesProvider;
 import pl.rationalworks.exchangeratetest.integration.fixer.FixerRatesProviderException;
-import pl.rationalworks.exchangeratetest.integration.fixer.model.LatestRates;
+import pl.rationalworks.exchangeratetest.model.dto.ExchangeRates;
 import pl.rationalworks.exchangeratetest.service.ExchangeRateService;
 
 import java.math.BigDecimal;
@@ -15,6 +17,7 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.util.Currency;
 import java.util.Map;
+import java.util.Optional;
 
 import static org.mockito.Mockito.*;
 
@@ -31,13 +34,15 @@ class ExchangeRateFetchingSchedulerTest {
 
     @Test
     void shouldCallRatesProvider() throws FixerRatesProviderException {
-        LatestRates rates = new LatestRates(true, Instant.now(), Currency.getInstance("EUR"),
+        ExchangeRates rates = new ExchangeRates(Instant.now(), Currency.getInstance("EUR"),
                 LocalDate.now(), Map.of(Currency.getInstance("USD"), BigDecimal.valueOf(3.954532)));
-        when(provider.provideExchangeRates()).thenReturn(rates);
+        when(service.fetchRatesFromFixer()).thenReturn(Optional.of(rates));
 
         scheduler.fetchFixerExchangeRates();
 
         verify(provider, atMostOnce()).provideExchangeRates();
-        verify(service, atMostOnce()).saveFixerRates(rates);
+        verify(service, atMostOnce()).saveOrUpdateRates(Mockito.assertArg(exchangeRates -> {
+            Assertions.assertEquals(rates.date(), exchangeRates.date());
+        }));
     }
 }
