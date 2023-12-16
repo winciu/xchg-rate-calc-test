@@ -9,7 +9,7 @@ import pl.rationalworks.exchangeratetest.model.ExchangeRate;
 import pl.rationalworks.exchangeratetest.model.ExchangeRateId;
 
 import java.time.LocalDate;
-import java.util.Currency;
+import pl.rationalworks.exchangeratetest.model.Currency;
 import java.util.List;
 import java.util.Optional;
 

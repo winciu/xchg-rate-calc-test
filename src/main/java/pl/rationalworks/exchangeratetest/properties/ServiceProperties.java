@@ -4,8 +4,10 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
-import java.util.Currency;
+import org.springframework.stereotype.Component;
+import pl.rationalworks.exchangeratetest.model.Currency;
 
+@Component
 @ConfigurationProperties(prefix = "service")
 @Getter
 @Setter

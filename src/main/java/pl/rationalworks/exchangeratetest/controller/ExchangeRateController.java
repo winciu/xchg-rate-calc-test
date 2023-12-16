@@ -13,7 +13,7 @@ import pl.rationalworks.exchangeratetest.service.ExchangeRateService;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Currency;
+import pl.rationalworks.exchangeratetest.model.Currency;
 import java.util.Optional;
 
 @Slf4j

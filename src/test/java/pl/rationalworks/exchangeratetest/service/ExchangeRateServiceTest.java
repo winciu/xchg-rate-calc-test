@@ -15,7 +15,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.time.Instant;
 import java.time.LocalDate;
-import java.util.Currency;
+import pl.rationalworks.exchangeratetest.model.Currency;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;

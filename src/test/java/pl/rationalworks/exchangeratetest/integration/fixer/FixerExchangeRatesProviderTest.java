@@ -14,6 +14,7 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 import pl.rationalworks.exchangeratetest.integration.fixer.model.FixerErrorResponse;
 import pl.rationalworks.exchangeratetest.integration.fixer.model.LatestRates;
+import pl.rationalworks.exchangeratetest.model.Currency;
 import pl.rationalworks.exchangeratetest.properties.FixerProviderProperties;
 
 import java.io.IOException;
@@ -21,7 +22,6 @@ import java.io.InputStream;
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.LocalDate;
-import java.util.Currency;
 import java.util.Map;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -64,7 +64,7 @@ class FixerExchangeRatesProviderTest {
     void shouldReturnAllLatestRates() throws IOException, FixerRatesProviderException {
 
         String latestUrl = UriComponentsBuilder.fromUri(properties.getLatestPath())
-                .queryParam("access-key", properties.getApiKey())
+                .queryParam("access_key", properties.getApiKey())
                 .toUriString();
 
         LatestRates rates = loadJsonResponse(LatestRates.class, "/integration/fixar-latest-test.json");
