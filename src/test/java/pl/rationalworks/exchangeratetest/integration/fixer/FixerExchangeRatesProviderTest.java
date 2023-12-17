@@ -31,10 +31,10 @@ import static org.springframework.test.web.client.match.MockRestRequestMatchers.
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.requestTo;
 import static org.springframework.test.web.client.response.MockRestResponseCreators.withStatus;
 
-//@ExtendWith(SpringExtension.class)
 @SpringBootTest
 class FixerExchangeRatesProviderTest {
 
+    private static final String ACCESS_KEY_PARAM = "access_key";
     @Autowired
     private FixerExchangeRatesProvider fixerExchangeRatesProvider;
     @Autowired
@@ -64,7 +64,7 @@ class FixerExchangeRatesProviderTest {
     void shouldReturnAllLatestRates() throws IOException, FixerRatesProviderException {
 
         String latestUrl = UriComponentsBuilder.fromUri(properties.getLatestPath())
-                .queryParam("access_key", properties.getApiKey())
+                .queryParam(ACCESS_KEY_PARAM, properties.getApiKey())
                 .toUriString();
 
         LatestRates rates = loadJsonResponse(LatestRates.class, "/integration/fixar-latest-test.json");
@@ -94,7 +94,7 @@ class FixerExchangeRatesProviderTest {
     @Test
     void shouldReturnExceptionOnErrorResponse() throws IOException {
         String latestUrl = UriComponentsBuilder.fromUri(properties.getLatestPath())
-                .queryParam("access-key", properties.getApiKey())
+                .queryParam(ACCESS_KEY_PARAM, properties.getApiKey())
                 .toUriString();
 
         FixerErrorResponse errorResponse = loadJsonResponse(FixerErrorResponse.class, "/integration/fixer-error-response.json");

@@ -9,14 +9,15 @@ import java.util.stream.Stream;
 
 import static java.math.BigDecimal.valueOf;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.comparesEqualTo;
+import static org.hamcrest.Matchers.equalTo;
 
 class ExchangeRateCalculatorTest {
 
     private static Stream<Arguments> shouldCalculateExchangeRateCorrectly() {
         return Stream.of(
-                Arguments.of(valueOf(3.7), valueOf(0.8), valueOf(4), valueOf(1), valueOf(4.44)),
-                Arguments.of(valueOf(4.338897), valueOf(1), valueOf(4), valueOf(0), valueOf(4.16534112))
+                Arguments.of(valueOf(3.7), valueOf(0.45656), valueOf(4), valueOf(1), new BigDecimal("7.77991939723147008")),
+                Arguments.of(valueOf(4.338897), valueOf(1), valueOf(4), valueOf(0), valueOf(4.16534112)),
+                Arguments.of(valueOf(4.314691), valueOf(0.000025801478), valueOf(4), valueOf(0), new BigDecimal("160537.445180466048"))
         );
     }
 
@@ -29,6 +30,6 @@ class ExchangeRateCalculatorTest {
                                               BigDecimal expectedResult) {
         ExchangeRateCalculator exchangeRateCalculator = new ExchangeRateCalculator();
         BigDecimal actual = exchangeRateCalculator.calculateExchangeRate(fromCurrencyRate, toCurrencyRate, fromCurrencySpread, toCurrencySpread);
-        assertThat(actual, comparesEqualTo(expectedResult));
+        assertThat(actual, equalTo(expectedResult));
     }
 }

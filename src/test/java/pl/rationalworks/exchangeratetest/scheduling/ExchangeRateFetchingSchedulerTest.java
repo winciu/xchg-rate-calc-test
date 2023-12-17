@@ -9,13 +9,13 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import pl.rationalworks.exchangeratetest.integration.fixer.FixerExchangeRatesProvider;
 import pl.rationalworks.exchangeratetest.integration.fixer.FixerRatesProviderException;
+import pl.rationalworks.exchangeratetest.model.Currency;
 import pl.rationalworks.exchangeratetest.model.dto.ExchangeRates;
 import pl.rationalworks.exchangeratetest.service.ExchangeRateService;
 
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.LocalDate;
-import pl.rationalworks.exchangeratetest.model.Currency;
 import java.util.Map;
 import java.util.Optional;
 
@@ -34,8 +34,9 @@ class ExchangeRateFetchingSchedulerTest {
 
     @Test
     void shouldCallRatesProvider() throws FixerRatesProviderException {
+        Map<Currency, BigDecimal> ratesMap = Map.of(Currency.getInstance("USD"), BigDecimal.valueOf(3.954532));
         ExchangeRates rates = new ExchangeRates(Instant.now(), Currency.getInstance("EUR"),
-                LocalDate.now(), Map.of(Currency.getInstance("USD"), BigDecimal.valueOf(3.954532)));
+                LocalDate.now(), ratesMap);
         when(service.fetchRatesFromFixer()).thenReturn(Optional.of(rates));
 
         scheduler.fetchFixerExchangeRates();

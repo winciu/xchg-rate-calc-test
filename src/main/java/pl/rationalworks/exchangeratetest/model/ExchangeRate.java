@@ -26,7 +26,7 @@ public class ExchangeRate {
     @Column(name = "timestamp", nullable = false)
     private Instant timestamp;
 
-    @Column(name = "rate", nullable = false, precision = 12, scale = 6)
+    @Column(name = "rate", nullable = false, precision = 14, scale = 6)
     private BigDecimal rate;
 
     @Column(name = "request_counter", nullable = false, updatable = false)

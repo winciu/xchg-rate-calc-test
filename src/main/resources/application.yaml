@@ -31,7 +31,7 @@ providers:
 spring:
   datasource:
     url: jdbc:h2:mem:xchg_rates
-#    url: jdbc:h2:file:/xchg/rates
+#    url: jdbc:h2:file:~/xchg/rates
     username: sa
     password: password
     driverClassName: org.h2.Driver
@@ -40,7 +40,7 @@ spring:
     properties:
       hibernate:
         jdbc:
-          batch_size: 4
+          batch_size: 50
           batch_versioned_data: true
         order_inserts: true
         order_updates: true
