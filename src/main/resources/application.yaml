@@ -54,3 +54,6 @@ spring:
       settings:
         trace: true
         web-allow-others: false
+springdoc:
+  swagger-ui:
+    operations-sorter: method

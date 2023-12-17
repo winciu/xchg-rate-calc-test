@@ -18,7 +18,7 @@ public class ExchangeRateFetchingScheduler {
     @Scheduled(cron = " ${service.scheduling.fixer.cron}", zone = "${service.scheduling.fixer.timezone}")
     public void fetchFixerExchangeRates() {
         log.info("Scheduled task started: Fixer latest rates download ...");
-        service.fetchRatesFromFixer().ifPresent(service::saveOrUpdateRates);
+        service.fetchRatesFromFixer();//.ifPresent(service::saveOrUpdateRates);
         log.info("Scheduled task finished: Fixer latest rates downloaded and saved.");
     }
 }
