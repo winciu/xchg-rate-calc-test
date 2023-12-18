@@ -15,7 +15,9 @@ values are given in the table below.
 The exchange rate calculation needs to take into consideration the highest spread of the 2 currencies,
 hence it should be calculated as follows:
 
+```math
 \frac{toCurrencyExchangeRateToUSD}{fromCurrencyExchangeRateToUSD}\times\frac{100 - MAX(toCurrencySpread, fromCurrencySpread)}{100}
+```
 
 Let's take the following example:
 
@@ -26,10 +28,8 @@ Let's take the following example:
 
 The exchange rate to convert EURs into PLNs would be worked out as:
 
-    \frac{3.7}{0.8}\times\frac{100 - 4}{100}=4.625\times0.96=4.44
-
 ```math
-\frac{1}{@}
+    \frac{3.7}{0.8}\times\frac{100 - 4}{100}=4.625\times0.96=4.44
 ```
 
 # Build
